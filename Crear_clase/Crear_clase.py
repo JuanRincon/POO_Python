@@ -1,46 +1,86 @@
+""" En otros lenguajes tenemos diferentes tipos de acceso a los datos
+publico, privado, protegido
+Esto nos permite tener encapsulación
 
-import math
+Python ve todos los métodos y datos como si fueran públicos
+y deja a la buena voluntad del programador respetar el acceso al dato
 
-""" Python no permite la sobrecarga de los constructores
-cosa que si permiten otros lenguajes
+Para indicar que un dato es privado se recomienda colocar la información
+en la documentación/doctring
 
-Si intentamos hacerla, obtenemos un warning y un error al
-ejecutar pues unicamente la última definición es la que se toma
-en cuenta"""
-class Alumno():
+Por convención si deseamos que un atributo sea tratado como privado
+colocamos _ antes del nombre _costo"""
 
-    # Este es el primer init
-    def __init__(self, *args):
+# Creamos una clase
+class Producto:
 
-        # Verificamos cuando no nos pasan parametros
-        if len(args)==0:
-            self.nombre="Por asignar"
-            self.edad=0
-            self.calificacion=0
+    def __init__(self):
+        self.cantidad = 10
 
-        if len(args)==3:
-            self.nombre=args[0]
+        # Indicamos que costo es privado
+        self._costo=5
 
-            if(args[1]>=18):
-                self.edad=args[1]
-            else:
-                print("Edad invalida")
-                self.edad=0
+# Creamos una intancia
+manzana=Producto()
 
-            if(args[2]>=0):
-                self.calificacion=args[2]
-            else:
-                print("Calificación invalida")
-                self.calificacion=0
+# Hacemos uso de cantidad
+print(manzana.cantidad)
 
-    def muestraDatos(self):
-        print(self.nombre, self.edad, self.calificacion)
+# Ahora hacemos uso de costo
+# aunque no deberiamos por estar indicado como privado
+# pero nada en el lenguaje nos impide usarlo
 
-# Creamos un objeto
+print(manzana._costo)
+manzana._costo=56
+print(manzana._costo)
 
-a1=Alumno()
-a1.muestraDatos()
+print("-------------------------------------")
+print("######################################")
+####################################################
 
-# Creamos un segundo objeto
-a2=Alumno('Ana',20,10)
-a2.muestraDatos()
+""" El usar _ es por convención
+El usar __ no es una convención, tiene un significado especial para el
+interprete. Se usa para evitar colisiones de nombres cuando se definen subclases
+Esto se llama name mangling, el interprete cambia el nombre para que sea
+menos posible tener coliciones si la clase se extiende"""
+
+class Producto2:
+
+    def __init__(self):
+        self.cantidad=10
+
+        # Indicamos que costo es privado
+        self._costo=5
+
+        # Creamos el atributo
+        self.__impuesto=0.16
+
+# Al usar __ podemos pensar que tenemos un acceso privado, pero no es así
+
+pera=Producto2()
+
+print(pera.cantidad, pera._costo)
+#print(pera.__impuesto)
+
+# veamos que sucede
+# Al nombre del atributo se le ha adiciconado _Producto2
+a = dir(pera)   # Para ver los atributos de pera le asignamos el resultado del método dir a la variable a e imprimimos
+print(a)
+
+# Si ponemos el nombre completo podemos hacer uso directo, lo que
+# comprueba que no es un aaceso privado
+print(pera._Producto2__impuesto)  # El nombre que se le asignó con __impuesto, por el name mangling fue _Producto2__impuesto
+
+print("-------------------------------------")
+print("######################################")
+####################################################
+
+# El usar - al final del nombre es usado para evitar conflicto con
+# palabras reservadas de python
+
+"""def funcion1(class, nombre):      Si se hace de esta manera sacara error por usar la palabra reservada class
+    pass"""
+
+# Ahora podemos usar un parametro con nombre class
+def funcion2(class_, nombre):
+    pass
