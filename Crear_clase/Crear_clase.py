@@ -1,39 +1,43 @@
 
 import math
 
-""" Para este caso se le da al constructor unos valores por default 
-que pueden servirnos por seguridad o para cuando en alguna aplicación
-hay unos valores que son los normalmente usados y pocas veces hay que
-cambiarlos"""
+""" Python no permite la sobrecarga de los constructores
+cosa que si permiten otros lenguajes
 
-# Creamos una clase
-class Vector:
+Si intentamos hacerla, obtenemos un warning y un error al
+ejecutar pues unicamente la última definición es la que se toma
+en cuenta"""
+class Alumno():
 
-    def __init__(self, x=5, y=5):
-        # Colocamos los atributos
-        self.x=x
-        self.y=y
+    # Este es el primer init
+    def __init__(self):
+        self.nombre="Por asignar"
+        self.edad=0
+        self.calificacion=0
 
-    # Creamos otro método
-    def Muestra(self):
-        print(self.x,self.y)
+    # Esta es la sobrecarga dle init
+    def __init__(self,nombre,edad,calificacion):
+        self.nombre=nombre
 
-# Y un método que regrese un valor
-    def magnitud(self):
-        return math.sqrt(self.x**2+self.y**2)
+        if(edad>=18):
+            self.edad=edad
+        else:
+            print("Edad invalida")
 
-v1 = Vector(4,5)
+        if(calificacion>=0):
+            self.calificacion=calificacion
+        else:
+            print("Calificación invalida")
+            self.calificacion=0
 
-# Invocamos el metodo
-v1.Muestra()
+    def muestraDatos(self):
+        print(self.nombre, self.edad, self.calificacion)
 
-# Obtener la magnitud
-m=v1.magnitud()
-print("La magnitud es", m)
+# Creamos un objeto
 
-print("-------------")
-# Aquí no pasamos parametros y usa el valor de default
-v2=Vector()
-v2.Muestra()
-m2=v2.magnitud()
-print(m2)
+    #a1=Alumno()
+    #a1.muestraDatos()
+
+# Creamos un segundo objeto
+a2=Alumno('Ana',20,10)
+a2.muestraDatos()
