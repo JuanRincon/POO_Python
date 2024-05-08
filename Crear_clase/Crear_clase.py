@@ -10,33 +10,36 @@ en cuenta"""
 class Alumno():
 
     # Este es el primer init
-    def __init__(self):
-        self.nombre="Por asignar"
-        self.edad=0
-        self.calificacion=0
+    def __init__(self, *args):
 
-    # Esta es la sobrecarga dle init
-    def __init__(self,nombre,edad,calificacion):
-        self.nombre=nombre
-
-        if(edad>=18):
-            self.edad=edad
-        else:
-            print("Edad invalida")
-
-        if(calificacion>=0):
-            self.calificacion=calificacion
-        else:
-            print("Calificación invalida")
+        # Verificamos cuando no nos pasan parametros
+        if len(args)==0:
+            self.nombre="Por asignar"
+            self.edad=0
             self.calificacion=0
+
+        if len(args)==3:
+            self.nombre=args[0]
+
+            if(args[1]>=18):
+                self.edad=args[1]
+            else:
+                print("Edad invalida")
+                self.edad=0
+
+            if(args[2]>=0):
+                self.calificacion=args[2]
+            else:
+                print("Calificación invalida")
+                self.calificacion=0
 
     def muestraDatos(self):
         print(self.nombre, self.edad, self.calificacion)
 
 # Creamos un objeto
 
-    #a1=Alumno()
-    #a1.muestraDatos()
+a1=Alumno()
+a1.muestraDatos()
 
 # Creamos un segundo objeto
 a2=Alumno('Ana',20,10)
