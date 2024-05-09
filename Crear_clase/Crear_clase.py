@@ -1,56 +1,65 @@
-# Uso de Get y set
+""" La herencia es una forma de la POO para llevar a cabo reutilización de código
+Con la herencia creamos una relación del tipo 'Es un'
+Tenemos una clase base que es extendida por la clase hija
+Adquiere todo lo que existe en la clase base y adiciona lo suyo propio
 
-# Creamos una clase
-class producto:
+Hay una clase especial construida en el lenguaje llamada object
+Provee ciertos metadatos y algunos comportamientos que le peermiten
+a python tratar a todos los objetos de formama consistente
 
-    def __init__(self, costo):
-        self._costo=costo
+Todas las clases en python descienden de object, pero no necesitamos
+colocarlo de la forma explicita, el lenguaje lo hace por nosotros"""
 
-        # Invocamos un método de la propia clase
-        self._precioventa=self._calculaPVenta()
+import statistics as st
+
+# definimos la clase
+# Esta sera la clase base
+
+class Calificaciones:
+    
+    def __init__(self, lista):
+        self.lista=lista
         
-    # Este método se cinsidera privado
-    def _calculaPVenta(self):
-        return self._costo*1.30
+    def minimo(self):
+        return min(self.lista)
     
-    # Creamos el getter para el atributo precioventa
-    def getPrecioVenta(self):
-        return self._precioventa
+    def maximo(self):
+        return max(self.lista)
     
-    # Creamos el setter para el atributo costo
-    def setCosto(self, valor):
+# Llevmos a cabo la herencia
+# La clas de la cual desciende se coloca entre parentesis
+
+class Estadistica(Calificaciones):
+    
+    # Adicionamos los metodos propios
+    def promedio(self):
+        return st.mean(self.lista)
         
-        # Podemos colocar codigo de seguridad
-        if(valor>0):
-            self._costo=valor
-            self._precioventa=self._calculaPVenta()
-        else:
-            print("Valor invalido")
-            self._costo=0
-            
-    # Creamos el getter del atributo costo
-    def getCosto(self):
-        return self._costo
+    def mediana(self):
+        return st.median(self.lista)
     
-    # Usamos __repr__ para facilitarnos la impresión
-    def __repr__(self):
-        return f'Costo=${self._costo}, Precio venta=${self._precioventa}'
-    
-# Creamos el objeto
-manzana=producto(12.5)
+    def moda(self):
+        return st.mode(self.lista)
 
-# imprimimos
-print(manzana)
+# creamos la lista
+calif=[8,10,9,8,8,7,8,9,10,5,5,6,6,9,9,9,9]
 
-# Obtenemos el precio de venta
-pv=manzana.getPrecioVenta()
-print('El impuesto es $', pv*0.16)
+# Creamos la instancia de Calificaciones
+MisCalifs=Calificaciones(calif)
 
-# Modificamos el costo
-manzana.setCosto(11.10)
+# Invocamos sus métodos
+print(MisCalifs.minimo())
+print(MisCalifs.maximo())
 
-# Obtenemos el costo
-print(manzana.getCosto())
+# Creamos la instancia de la clase estadistica
 
-# Imprimimos el objeto
-print(manzana)
+MiEst=Estadistica(calif)
+
+# Comprobamos  que podemos usar metodos de la clase base
+print(MiEst.promedio())
+print(MiEst.mediana())
+print(MiEst.moda())
+
+# La clase base no tiene acceso a ellos
+#print(MisCalifs.promedio())
+
