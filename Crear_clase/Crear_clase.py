@@ -1,68 +1,45 @@
-# Hacemos override a metodos de la clase base
+# Herencia multiple (NO SE RECOMIENDA POR LOS CONFLICTOS QUE PUEDE PRESNTAR ENTRE CLASES ESPECIALMENTE EN PROYECTOS GRANDES)
+# Aunque es permitida por Python uno de los problemas es uno conocido como el problema del diamante
 
-# Esta es la clase base
-class Persona:
-	def __init__(self, nombre, edad):
-		self.nombre=nombre
-		self.edad=edad
 
-	def mayorEdad(self):
-		if(self.edad>=18):
-			return True
-		else:
-			return False
+# Creamos una primera clase
+class Producto():
 
-	def muestraDatos(self):
+    def __init__ (self, cantidad, costo):
+        self.cantidad=cantidad
+        self.costo=costo
 
-		print('El nombre es ', self.nombre)
-		print('La edad es ', self.edad)
+    def calculaTotales(self):
+        self.total=self.cantidad*self.costo
+        print('Se tiene el total $', self.total)
 
-# Hacemos una herencia
-class Empleado(Persona):
-	def __init__(self, nombre, edad, sueldo, puesto):
+    def muestraProducto(self):
+        print('Se tienen ',self.cantidad, ' productos')
+        print('El costo del producto es $', self.costo)
+        self.calculaTotales()
 
-		super().__init__(nombre, edad)
+# Creamos otra clase
+class Fruta():
 
-		self.sueldo=sueldo
-		self.puesto=puesto
+        def __init__(self, nombre, origen):
+                self.nombre=nombre
+                self.origen=origen
 
-	def mayorEdad(self):
-		if(self.edad>=25):
-			print('Bienvenido a la empresa')
-			return True
-		else:
-			print('La empresa no contrata a menores de 25')
-			return False
+        def muestraFruta(self):
+                print('La fruta es ', self.nombre)
+                print('Con origenn en ', self.origen)
 
-	# Hacemos override a muestra Datos
-	def muestraDatos(self):
-		print('Nombre:',self.nombre)
+# Creamos una clase con herencia multiple
+class Articulo(Producto, Fruta):
 
-		if self.mayorEdad()==True:
-			print('--- Infomración de empleado ---')
+        def __init__(self, nombre, origen, cantidad, costo):
+                Fruta.__init__(self, nombre, origen)
+                Producto.__init__(self, cantidad, costo)
 
-			print('Sueldo: $',self.sueldo)
-			print('Puesto:',self.puesto)
+        def muestraArticulo(self):
+                Fruta.muestraFruta(self)
+                Producto.muestraProducto(self)
 
-# Creamos una intancia
-p1=Persona('Ana',25)
+manzana=Articulo('Manzana', 'Mexico', 500, 10.56)
 
-print(p1.mayorEdad())
-p1.muestraDatos()
-
-print('---------')
-
-# Creamos otra instancia
-e1=Empleado('Juan',30,15000,'Analista')
-
-print(e1.mayorEdad())
-e1.muestraDatos()
-
-print('---------')
-
-# Creamos otra instancia
-e2=Empleado('Aldo',23,10000,'DBA')
-
-print(e2.mayorEdad())
-e2.muestraDatos()
-
+manzana.muestraArticulo()
