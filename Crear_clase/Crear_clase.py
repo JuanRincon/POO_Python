@@ -1,4 +1,4 @@
-# Aprendemos con reutilizar el código de la clase base
+# Hacemos override a metodos de la clase base
 
 # Esta es la clase base
 class Persona:
@@ -21,24 +21,28 @@ class Persona:
 class Empleado(Persona):
 	def __init__(self, nombre, edad, sueldo, puesto):
 
-		# Por medio de super() invocamos métodos que existan en la clase base
-		# y podemos hacer reutilización de código
-
-		# Aprovechamos que init de Persona ya inicializa algunos atrubutos
 		super().__init__(nombre, edad)
 
-		# Ahora inicalizamos los propios
 		self.sueldo=sueldo
 		self.puesto=puesto
 
+	def mayorEdad(self):
+		if(self.edad>=25):
+			print('Bienvenido a la empresa')
+			return True
+		else:
+			print('La empresa no contrata a menores de 25')
+			return False
+
+	# Hacemos override a muestra Datos
 	def muestraDatos(self):
+		print('Nombre:',self.nombre)
 
-		# Aprovechamos el muestraDatos de Persona
-		super().muestraDatos()
+		if self.mayorEdad()==True:
+			print('--- Infomración de empleado ---')
 
-		# Adicionamos lo propio
-		print('Sueldo: $',self.sueldo)
-		print('Puesto:',self.puesto)
+			print('Sueldo: $',self.sueldo)
+			print('Puesto:',self.puesto)
 
 # Creamos una intancia
 p1=Persona('Ana',25)
@@ -53,3 +57,12 @@ e1=Empleado('Juan',30,15000,'Analista')
 
 print(e1.mayorEdad())
 e1.muestraDatos()
+
+print('---------')
+
+# Creamos otra instancia
+e2=Empleado('Aldo',23,10000,'DBA')
+
+print(e2.mayorEdad())
+e2.muestraDatos()
+
