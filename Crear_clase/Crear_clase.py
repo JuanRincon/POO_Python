@@ -1,65 +1,55 @@
-""" La herencia es una forma de la POO para llevar a cabo reutilización de código
-Con la herencia creamos una relación del tipo 'Es un'
-Tenemos una clase base que es extendida por la clase hija
-Adquiere todo lo que existe en la clase base y adiciona lo suyo propio
+# Aprendemos con reutilizar el código de la clase base
 
-Hay una clase especial construida en el lenguaje llamada object
-Provee ciertos metadatos y algunos comportamientos que le peermiten
-a python tratar a todos los objetos de formama consistente
+# Esta es la clase base
+class Persona:
+	def __init__(self, nombre, edad):
+		self.nombre=nombre
+		self.edad=edad
 
-Todas las clases en python descienden de object, pero no necesitamos
-colocarlo de la forma explicita, el lenguaje lo hace por nosotros"""
+	def mayorEdad(self):
+		if(self.edad>=18):
+			return True
+		else:
+			return False
 
-import statistics as st
+	def muestraDatos(self):
 
-# definimos la clase
-# Esta sera la clase base
+		print('El nombre es ', self.nombre)
+		print('La edad es ', self.edad)
 
-class Calificaciones:
-    
-    def __init__(self, lista):
-        self.lista=lista
-        
-    def minimo(self):
-        return min(self.lista)
-    
-    def maximo(self):
-        return max(self.lista)
-    
-# Llevmos a cabo la herencia
-# La clas de la cual desciende se coloca entre parentesis
+# Hacemos una herencia
+class Empleado(Persona):
+	def __init__(self, nombre, edad, sueldo, puesto):
 
-class Estadistica(Calificaciones):
-    
-    # Adicionamos los metodos propios
-    def promedio(self):
-        return st.mean(self.lista)
-        
-    def mediana(self):
-        return st.median(self.lista)
-    
-    def moda(self):
-        return st.mode(self.lista)
+		# Por medio de super() invocamos métodos que existan en la clase base
+		# y podemos hacer reutilización de código
 
-# creamos la lista
-calif=[8,10,9,8,8,7,8,9,10,5,5,6,6,9,9,9,9]
+		# Aprovechamos que init de Persona ya inicializa algunos atrubutos
+		super().__init__(nombre, edad)
 
-# Creamos la instancia de Calificaciones
-MisCalifs=Calificaciones(calif)
+		# Ahora inicalizamos los propios
+		self.sueldo=sueldo
+		self.puesto=puesto
 
-# Invocamos sus métodos
-print(MisCalifs.minimo())
-print(MisCalifs.maximo())
+	def muestraDatos(self):
 
-# Creamos la instancia de la clase estadistica
+		# Aprovechamos el muestraDatos de Persona
+		super().muestraDatos()
 
-MiEst=Estadistica(calif)
+		# Adicionamos lo propio
+		print('Sueldo: $',self.sueldo)
+		print('Puesto:',self.puesto)
 
-# Comprobamos  que podemos usar metodos de la clase base
-print(MiEst.promedio())
-print(MiEst.mediana())
-print(MiEst.moda())
+# Creamos una intancia
+p1=Persona('Ana',25)
 
-# La clase base no tiene acceso a ellos
-#print(MisCalifs.promedio())
+print(p1.mayorEdad())
+p1.muestraDatos()
 
+print('---------')
+
+# Creamos otra instancia
+e1=Empleado('Juan',30,15000,'Analista')
+
+print(e1.mayorEdad())
+e1.muestraDatos()
