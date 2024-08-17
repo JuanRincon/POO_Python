@@ -13,7 +13,7 @@ class NumeroComplejo:
 	def imprimirNumero(self):
 		print(str(self.ParteReal) + " + i * " + str(self.ParteImaginaria))
 
-	def CambiarParteReal(self, real):
+	def cambiarParteReal(self, real):
 		self.ParteReal = real
 
 	def obtenerParteReal(self):
@@ -35,6 +35,15 @@ class NumeroComplejo:
 		self.ParteReal = self.ParteReal - numero.ParteReal
 		self.ParteImaginaria = self.ParteImaginaria - numero.ParteImaginaria
 
+	def __add__(self, numero):
+		self.ParteReal = self.ParteReal + numero.ParteReal
+		self.ParteImaginaria = self.ParteImaginaria + numero.ParteImaginaria
+
+	# Suma de 2 números complejos sobreescriiendo el operador +
+
+	def __sub__(self, numero):
+		self.ParteReal = self.ParteReal - numero.ParteReal
+		self.ParteImaginaria = self.ParteImaginaria - numero.ParteImaginaria
 
 
 
@@ -47,7 +56,7 @@ primerNumero = NumeroComplejo(12.0, 4.0)
 print("número complejo versión inicial")
 primerNumero.imprimirNumero()
 print("número complejo modificado (cambiar valor de la parteReal)")
-primerNumero.CambiarParteReal(24.0)
+primerNumero.cambiarParteReal(24.0)
 primerNumero.imprimirNumero()
 print("Parte imaginaria en otro cálculo (parteImaginaria + 5.0)")
 print( (primerNumero.obtenerParteImaginaria() ) + 5.0)
@@ -68,4 +77,13 @@ print("Suma de ambos números complejos")
 primerNumero.numeroComplejoSuma(segundoNumero)
 primerNumero.imprimirNumero()
 
+#sy("clear")
 
+# Suma de 2 números complejos sobreescriiendo el operador +
+
+print("Suma de ambos números complejos: sobrecarga")
+# Suma de dos números complejos de manera natural
+primerNumero + segundoNumero
+primerNumero.imprimirNumero()
+primerNumero + segundoNumero
+primerNumero.imprimirNumero()
