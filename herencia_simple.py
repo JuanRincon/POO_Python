@@ -21,12 +21,12 @@ class Operacion:
 		return self.valor2
 
 	# Cambiar valor1 (setter)
-	def cambiarValor1(self, numeroValor):
+	def cambiarValor1(self, nuevoValor):
 		self.valor1 = nuevoValor
 
 	# Cambiar valor2 (setter)
-	def cambiarValor2(self, numeroValor):
-		self.valor2 = nuevoValor
+	def cambiarValor2(self, nuevoValor):
+		self.valor2 =  nuevoValor
 
 	# Imprimir número
 	def imprimirValor(self, numero):
